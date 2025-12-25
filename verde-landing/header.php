@@ -9,14 +9,14 @@
 <body <?php body_class(); ?>>
 <div class="intro-overlay" id="intro-overlay">
     <div class="intro-logo">
-        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.svg'); ?>" alt="Ignatova Anna">
-        <span>Ignatova</span>
+        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.svg'); ?>" alt="<?php bloginfo('name'); ?>">
+        <span><?php bloginfo('name'); ?></span>
     </div>
 </div>
 <header class="site-header" id="site-header">
     <div class="header-inner">
         <a class="brand" href="<?php echo esc_url(home_url('/')); ?>">
-            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.svg'); ?>" alt="Ignatova Anna">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.svg'); ?>" alt="<?php bloginfo('name'); ?>">
             <span><?php bloginfo('name'); ?></span>
         </a>
         <nav class="nav">
@@ -27,8 +27,8 @@
                 'menu_class' => 'menu',
                 'fallback_cb' => function () {
                     echo '<ul class="menu">';
-                    echo '<li><a href="#about">О себе</a></li>';
-                    echo '<li><a href="#works">Работы</a></li>';
+                    echo '<li><a href="#about">О студии</a></li>';
+                    echo '<li><a href="#works">Проекты</a></li>';
                     echo '<li><a href="#services">Услуги</a></li>';
                     echo '<li><a href="#contacts">Контакты</a></li>';
                     echo '</ul>';
