@@ -2,10 +2,10 @@
 <footer class="footer">
     <div class="footer-inner">
         <div class="footer-brand">
-            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.svg'); ?>" alt="Ignatova Anna">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.svg'); ?>" alt="<?php bloginfo('name'); ?>">
             <div>
                 <p><?php bloginfo('name'); ?></p>
-                <p class="muted">Ландшафтный дизайнер</p>
+                <p class="muted">Ландшафтная студия</p>
             </div>
         </div>
         <div class="footer-actions">

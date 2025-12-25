@@ -4,13 +4,13 @@ const header = document.getElementById('site-header');
 const overlayDuration = 1200;
 
 function showIntro() {
-    if (!introOverlay || sessionStorage.getItem('ignatovaIntro')) {
+    if (!introOverlay || sessionStorage.getItem('verdeIntro')) {
         body.classList.remove('no-scroll');
         return;
     }
     body.classList.add('no-scroll');
     introOverlay.classList.add('visible');
-    sessionStorage.setItem('ignatovaIntro', 'seen');
+    sessionStorage.setItem('verdeIntro', 'seen');
     setTimeout(() => {
         introOverlay.classList.add('hidden');
         body.classList.remove('no-scroll');
