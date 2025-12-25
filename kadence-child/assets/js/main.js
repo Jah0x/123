@@ -1,45 +1,46 @@
-(function () {
-    var telegramLinks = document.querySelectorAll('[data-telegram]');
-    var header = document.getElementById('site-header');
-    var overlay = document.getElementById('intro-overlay');
-    var telegramUrl = (window.kadenceChild && window.kadenceChild.telegramUrl) || '#';
-    telegramLinks.forEach(function (link) {
-        link.setAttribute('href', telegramUrl);
-    });
-    var anchors = document.querySelectorAll('[data-scroll]');
-    anchors.forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            var targetId = link.getAttribute('href');
-            if (targetId && targetId.startsWith('#')) {
-                event.preventDefault();
-                var target = document.querySelector(targetId);
-                if (target) {
-                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
-                }
-            }
+const introOverlay = document.getElementById('intro-overlay');
+const body = document.body;
+const header = document.getElementById('site-header');
+const overlayDuration = 1200;
+
+function showIntro() {
+    if (!introOverlay || sessionStorage.getItem('ignatovaIntro')) {
+        body.classList.remove('no-scroll');
+        return;
+    }
+    body.classList.add('no-scroll');
+    introOverlay.classList.add('visible');
+    sessionStorage.setItem('ignatovaIntro', 'seen');
+    setTimeout(() => {
+        introOverlay.classList.add('hidden');
+        body.classList.remove('no-scroll');
+    }, overlayDuration + 400);
+}
+
+function handleScroll() {
+    if (!header) return;
+    const compact = window.scrollY > 50;
+    header.classList.toggle('is-compact', compact);
+}
+
+function smoothAnchors() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach((link) => {
+        link.addEventListener('click', (event) => {
+            const targetId = link.getAttribute('href').substring(1);
+            const target = document.getElementById(targetId);
+            if (!target) return;
+            event.preventDefault();
+            const headerHeight = header ? header.getBoundingClientRect().height : 0;
+            const offset = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
         });
     });
-    var toggleHeader = function () {
-        if (!header) return;
-        if (window.scrollY > 12) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    };
-    toggleHeader();
-    window.addEventListener('scroll', toggleHeader, { passive: true });
-    if (overlay && typeof sessionStorage !== 'undefined') {
-        var shown = sessionStorage.getItem('kadence_intro_shown');
-        if (!shown) {
-            document.body.classList.add('no-scroll');
-            overlay.classList.add('visible');
-            setTimeout(function () {
-                overlay.style.opacity = '0';
-                overlay.style.visibility = 'hidden';
-                document.body.classList.remove('no-scroll');
-                sessionStorage.setItem('kadence_intro_shown', '1');
-            }, 1700);
-        }
-    }
-})();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    showIntro();
+    smoothAnchors();
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+});
