@@ -2,7 +2,7 @@
 <footer class="footer">
     <div class="footer-inner">
         <div class="footer-brand">
-            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.svg'); ?>" alt="<?php bloginfo('name'); ?>">
+            <img src="<?php echo esc_url(verde_get_logo_url()); ?>" alt="<?php bloginfo('name'); ?>">
             <div>
                 <p><?php bloginfo('name'); ?></p>
                 <p class="muted">Ландшафтная студия</p>

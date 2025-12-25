@@ -24,15 +24,20 @@ function handleScroll() {
 }
 
 function smoothAnchors() {
-    const links = document.querySelectorAll('a[href^="#"]');
+    const links = document.querySelectorAll('a[href*="#"]');
     links.forEach((link) => {
         link.addEventListener('click', (event) => {
-            const targetId = link.getAttribute('href').substring(1);
+            const rawHref = link.getAttribute('href');
+            if (!rawHref) return;
+            const destination = new URL(rawHref, window.location.href);
+            const targetId = destination.hash.replace('#', '');
+            const normalize = (value) => value.replace(/\/+$/, '') || '/';
+            if (!targetId || normalize(destination.pathname) !== normalize(window.location.pathname) || destination.origin !== window.location.origin) return;
             const target = document.getElementById(targetId);
             if (!target) return;
             event.preventDefault();
             const headerHeight = header ? header.getBoundingClientRect().height : 0;
-            const offset = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+            const offset = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
             window.scrollTo({ top: offset, behavior: 'smooth' });
         });
     });
