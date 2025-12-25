@@ -3,6 +3,14 @@ if (!defined('TELEGRAM_URL')) {
     define('TELEGRAM_URL', 'https://t.me/USERNAME');
 }
 
+function verde_get_logo_url(): string
+{
+    $path = get_template_directory() . '/assets/images/logo.png';
+    $uri = get_template_directory_uri() . '/assets/images/logo.png';
+    $version = file_exists($path) ? filemtime($path) : wp_get_theme()->get('Version');
+    return add_query_arg('v', $version, $uri);
+}
+
 add_action('after_setup_theme', function () {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
