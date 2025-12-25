@@ -1,10 +1,21 @@
+</main>
 <footer class="footer">
-    <div class="footer-actions">
-        <a class="telegram-btn" data-telegram target="_blank" rel="noopener">Telegram</a>
-        <a class="secondary-btn" href="#contacts" data-scroll>Контакты</a>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.svg'); ?>" alt="Ignatova Anna">
+            <div>
+                <p><?php bloginfo('name'); ?></p>
+                <p class="muted">Ландшафтный дизайнер</p>
+            </div>
+        </div>
+        <div class="footer-actions">
+            <a class="button" href="<?php echo esc_url(TELEGRAM_URL); ?>" target="_blank" rel="noopener">Telegram</a>
+        </div>
+        <div class="footer-meta">
+            <span><?php echo esc_html(get_bloginfo('name')); ?> © <?php echo date('Y'); ?></span>
+        </div>
     </div>
-    <p>© <?php echo date('Y'); ?> Анна Игнатова. Ландшафтный дизайн.</p>
+    <?php wp_footer(); ?>
 </footer>
-<?php wp_footer(); ?>
 </body>
 </html>
